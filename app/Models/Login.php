@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use App\Models\Bases\BaseModel;
+use App\Utils\ArquivosStorage;
 use App\Utils\BaseRetornoApi;
 use App\Utils\EnvConfig;
 use Illuminate\Http\Request;
@@ -13,11 +14,16 @@ class Login extends BaseModel{
         'id', 'api_token', 'user_id', 'codigo_verificacao_login', 'validado'
     ];
 
+    public static function LogoutToken($token){
+        $sessao = self::query()->where('api_token', '=', $token)->first();
+        if($sessao)
+            $sessao->delete();
+        return BaseRetornoApi::GetRetornoSucesso("Usuário Deslogado");
+    }
+
     public static function Logout(Request $request){
         $token = $request->header('Authorization');
-        $sessao = self::query()->where('api_token', '=', $token)->first();
-        $sessao->delete();
-        return BaseRetornoApi::GetRetornoSucesso("Usuário Deslogado");
+        return static::LogoutToken($token);
     }
 
     public static function ValidaCodigoVerificacao(Request $request, $codigo){
@@ -75,6 +81,9 @@ class Login extends BaseModel{
             ->first();
 
         if(isset($usuarioLogado) && $usuarioLogado && $usuarioLogado->id){
+            if(!$usuarioLogado->cadastro_aprovado){
+                return BaseRetornoApi::GetRetornoErro(["Seu usuário ainda não foi aprovado"], "Login correto, porém");
+            }
             $token = hash(EnvConfig::HashTokenApi(), Str::random(60));
             $codigoverificacao = Str::random(5);
             self::VerificaSessoesAtivas($usuarioLogado->id);
@@ -88,7 +97,8 @@ class Login extends BaseModel{
                     BaseRetornoApi::$CampoMensagem => "Usuário Logado com sucesso",
                     "api_token" => $token,
                     BaseRetornoApi::$codigoRetorno => 200,
-                    "path_avatar" => $usuarioLogado->path_avatar,
+                    BaseRetornoApi::$CampoErro => false,
+                    "path_avatar" => ArquivosStorage::GetUrlView($usuarioLogado->path_avatar),
                     "name" => $usuarioLogado->name,
                 ], 200);
             }else{

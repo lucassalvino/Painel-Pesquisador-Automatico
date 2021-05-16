@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{asset('assets/css/main.css')}}?v=1.0">
 
 <script src="{{asset('assets/js/main.js')}}?v=1.0"></script>
+<script src="{{asset('assets/js/go-debug.js')}}?v=1.0"></script>
 
 <meta name="description" content="Pesquisador automático para auxiliar no desenvolvimento de pesquisa"/>
 <meta property="og:type" content="website"/>

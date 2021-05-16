@@ -7,6 +7,10 @@
     background-color: #40bfd1;
 }
 
+.errorlist{
+  transition-duration: .5s;
+}
+
 .container-form-login{
     padding: 50px;
     border-radius: 25px;
@@ -23,6 +27,26 @@
 }
 .container-form-login input{
     min-width: 300px;
+}
+input[type='checkbox']{
+  min-width: 20px;
+  height: 20px;
+}
+input[type='checkbox'].small{
+  min-width: 15px;
+  height: 15px;
+}
+.form-check-label {
+  margin-top: 3px;
+  margin-left: 5px;
+}
+.form-check-label.small{
+  margin-top: 1px;
+  margin-left: 0px;
+}
+.form-check{
+  display: flex;
+  justify-content: flex-end;
 }
 .container-form-login img{
     height: auto;
@@ -59,7 +83,7 @@ a{
     color: #3CDBE1;
 }
 a:hover{
-    color: #36BEF7;
+  color: #36BEF7;
 }
 .btn-primary{
     background-color: #3CDBE1;
@@ -70,6 +94,61 @@ a:hover{
 }
 input{
     height: 40px;
+}
+
+
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+/* Timeline vertical line */
+ul.timeline:before {
+  content: ' ';
+  background: #fff;
+  display: inline-block;
+  position: absolute;
+  left: 16px;
+  width: 4px;
+  height: 100%;
+  z-index: 400;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 0px 5px 1px #17a2b84a; 
+  box-shadow: 0px 0px 5px 1px #17a2b84a;
+}
+
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+li.timeline-item {
+  margin: 20px 0;
+}
+
+/* Timeline item arrow */
+.timeline-arrow {
+  border-top: 0.5rem solid transparent;
+  border-right: 0.5rem solid #fff;
+  border-bottom: 0.5rem solid transparent;
+  display: block;
+  position: absolute;
+  left: 2rem;
+}
+
+/* Timeline item circle marker */
+li.timeline-item::before {
+  content: ' ';
+  background: #17a2b8;
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  left: 11px;
+  width: 14px;
+  height: 14px;
+  z-index: 400;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 

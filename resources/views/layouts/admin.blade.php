@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="pt-BR">
 
+<?php
+
+?>
+
 <head>
   @include('includes.default-head')
 </head>
@@ -13,24 +17,24 @@
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="#">Pesquisador</a>
+          <a href="{{route('admin:home')}}">Pesquisador</a>
           <div id="close-sidebar">
             <i class="fas fa-times"></i>
           </div>
         </div>
         <div class="sidebar-header">
           <div class="user-pic">
-            <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+            <img class="img-responsive img-rounded" src="{{ session('pathavatar','') }}" alt="Avatar usuário">
           </div>
           <div class="user-info">
-            <span class="user-name">Jhon
-              <strong>Smith</strong>
+            <span class="user-name">
+              {{ session('usuario', '') }}
             </span>
-            <span class="user-role">Administrator</span>
+            <!-- <span class="user-role">Administrator</span> 
             <span class="user-status">
               <i class="fa fa-circle"></i>
               <span>Online</span>
-            </span>
+            </span>-->
           </div>
         </div>
         <!-- sidebar-search  -->
@@ -74,7 +78,7 @@
             </li>
 
             <li>
-              <a href="#">
+              <a href="{{route('admin:construindo')}}">
                 <i class="fas fa-search-plus"></i>
                 <span>Pesquisa inteligente</span>
                 <span class="badge badge-pill badge-danger">Alfa</span>
@@ -90,7 +94,7 @@
             </li>
 
             <li>
-              <a href="#">
+              <a href="{{route('admin:construindo')}}">
                 <i class="fas fa-text-width"></i>
                 <span>Artigo Manual</span>
                 <span class="badge badge-pill badge-danger">Alfa</span>
@@ -101,14 +105,14 @@
               <span>Admin</span>
             </li>
             <li>
-              <a href="#">
+              <a href="{{route('admin:construindo')}}">
                 <i class="fas fa-users"></i>
                 <span>Usuários</span>
                 <span class="badge badge-pill badge-danger">Alfa</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{{route('admin:construindo')}}">
                 <i class="fas fa-tools"></i>
                 <span>Configurações</span>
                 <span class="badge badge-pill badge-danger">Alfa</span>
@@ -118,16 +122,17 @@
               <span>Sobre</span>
             </li>
             <li>
-              <a href="#">
+              <a href="{{route('admin:sobre')}}">
                 <i class="fas fa-address-card"></i>
                 <span>Sobre</span>
-                <span class="badge badge-pill badge-danger">Alfa</span>
+                <span class="badge badge-pill badge-primary">Beta</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{{route('admin:politica')}}">
                 <i class="fas fa-balance-scale"></i>
-                <span>Política de privacidade</span>
+                <span>Pol. de privacidade</span>
+                <span class="badge badge-pill badge-primary">Beta</span>
               </a>
             </li>
             </li>
@@ -150,12 +155,30 @@
           <i class="fa fa-envelope"></i>
           <span class="badge badge-pill badge-success notification">0</span>
         </a>
-        <a href="#">
+        <a href="#" data-toggle="modal" data-target="#modallogout">
           <i class="fa fa-power-off"></i>
         </a>
       </div>
     </nav>
-
+    <div class="modal fade" id="modallogout" tabindex="-1" role="dialog" aria-labelledby="modallogoutTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Você realmente quer sair?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Quando fizer logout será necessário logar novamente para ter acesso</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            <button type="button" id="logout" class="btn btn-danger">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- sidebar-wrapper  -->
     <main class="page-content">
       <div class="container-fluid">
@@ -165,8 +188,8 @@
         <hr>
         <footer class="text-center">
           <div class="mb-2">
-            <small class="d-flex justify-content-center align-items-center">
-              © &nbsp; <i class="fab fa-github" style="font-size: 15px;"></i> &nbsp; <a target="_blank" rel="noopener noreferrer" href="https://github.com/lucassalvino/Painel-Pesquisador-Automatico">
+            <small class="d-flex justify-content-center align-items-center" style="font-size: 18px;">
+              <i class="fab fa-python"></i> &nbsp; <i class="fab fa-laravel"></i> &nbsp; <i class="fab fa-github"></i> &nbsp; <a target="_blank" rel="noopener noreferrer" href="https://github.com/lucassalvino/Painel-Pesquisador-Automatico">
                 Repositório GitHub
               </a>
             </small>
@@ -177,6 +200,22 @@
     </main>
     <!-- page-content" -->
   </div>
+
+  <script>
+    $('#logout').on('click', function(){
+      $.ajax({
+        url: '{{route("fazer.logout")}}',
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+        data:{
+          "_token": "{{ csrf_token() }}",
+        },
+        success:function(data){
+          window.location.href = data.url;
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
