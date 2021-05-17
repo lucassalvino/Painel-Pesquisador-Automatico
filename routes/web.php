@@ -33,5 +33,6 @@ Route::group([
     Route::get('/', [AdminController::class, 'index'])->name('home');
     Route::get('/politica-privacidade', [AdminController::class, 'Politica'])->name('politica');
     Route::get('/sobre', [AdminController::class, 'Sobre'])->name('sobre');
+    Route::get('/cadastroartigoexterno', [AdminController::class, 'CadastroArtigoExterno'])->name('cadastro_artigos_externos');
     Route::get('/emconstrucao', [AdminController::class, 'EmConstrucao'])->name('construindo');
 });

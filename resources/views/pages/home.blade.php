@@ -43,7 +43,7 @@
                         <p class="text-secondary">Artigos Cadastrados</p>
                     </div>
                     <div class="d-flex w-100 justify-content-center align-items-center">
-                        <p class="text-dark numero-valor">0</p>
+                        <p class="text-dark numero-valor">{{$homeartigos['artigos']}}</p>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                         <p class="text-secondary">Artigos não processados</p>
                     </div>
                     <div class="d-flex w-100 justify-content-center align-items-center">
-                        <p class="text-dark numero-valor">0</p>
+                        <p class="text-dark numero-valor">{{$homeartigos['pendentes']}}</p>
                     </div>
                 </div>
             </div>
@@ -139,28 +139,31 @@
                 <div class="d-flex" >
                     <div class="col-10">
                         <ul class="timeline">
+                            @forelse($eventos as $evento)
                             <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
                                 <div class="timeline-arrow"></div>
-                                <h2 class="h5 mb-0">Novo usuário cadastrado</h2>
+                                <h2 class="h5 mb-0">{{$evento['titulo']}}</h2>
                                 <span class="small text-gray">
                                     <i class="fas fa-history"></i>
-                                    16/05/2021 00:00:00
+                                    {{$evento['data']}}
                                 </span>
                                 <p class="text-small mt-2 font-weight-light">
-                                    Usuário Kame se cadastrou na plataforma
+                                    {{$evento['descricao']}}
                                 </p>
                             </li>
+                            @empty
                             <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
                                 <div class="timeline-arrow"></div>
-                                <h2 class="h5 mb-0">Novo artigo cadastrado</h2>
+                                <h2 class="h5 mb-0">Nenhum evento</h2>
                                 <span class="small text-gray">
                                     <i class="fas fa-history"></i>
-                                    16/05/2021 00:00:00
+                                    00/00/0000 00:00:00
                                 </span>
                                 <p class="text-small mt-2 font-weight-light">
-                                    Usuário Kame cadastrou um novo artigo
+                                    Aguardando eventos a serem exibidos
                                 </p>
                             </li>
+                            @endforelse
                         </ul>
                     </div>
                 </div>

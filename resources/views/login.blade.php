@@ -17,7 +17,7 @@
                @if(isset($retorno))
                 @include('includes.error', ['retorno'=>$retorno])
                @endif
-                <form method="POST" action="{{ url('/login') }}">
+                <form method="POST" action="{{ url('/login') }}" no-process>
                     {{ csrf_field() }}
                     <div class="form-group">
                         <input type="text" class="form-control" id="usuario" name="user" placeholder="Usuário">
@@ -52,42 +52,47 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="d-flex flex-column pl-3 pr-3 pt-4">
-        <div class="d-flex justify-content-center">
+
+      <form action="{{route('cadastro-usuario')}}" method="POST" enctype="multipart/form-data" data-onsubmit data-back>
+        <div class="d-flex flex-column pl-3 pr-3 pt-4">
+            <div class="d-flex justify-content-center">
+                <div class="form-group">
+                    <label class="">Seu Avatar</label>
+                    <img class="box-photo btn-photo img-fluid d-none d-md-block mb-2" src="{{ asset('assets/images/camera.svg') }}" width="168" height="168"> 
+                    <input type="file" class="d-md-none mb-md-0 mb-3" accept="image/*" id="file-photo" required>
+                    <input type="hidden" name="avatar_base64" id="path-photo">
+                    <input type="hidden" name="avatar_tipo" id="type-photo">
+                    <label class="btn-photo d-none d-md-block">
+                        <i class="fas fa-file-upload"></i> Upload da imagem
+                    </label>
+                </div>
+            </div>
             <div class="form-group">
-                <label class="">Seu Avatar</label>
-                <img class="box-photo btn-photo img-fluid d-none d-md-block mb-2" src="{{ asset('assets/images/camera.svg') }}" width="168" height="168"> 
-                <input type="file" class="d-md-none mb-md-0 mb-3" accept="image/*" id="file-photo">
-                <input type="hidden" name="foto_base_64" id="path-photo">
-                <input type="hidden" name="tipo_imagem" id="type-photo">
-                <label class="btn-photo d-none d-md-block">
-                    <i class="fas fa-file-upload"></i> Upload da imagem
-                </label>
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+            <div class="d-flex w-100">
+                <div class="w-50 form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="name" class="form-control" id="nome" placeholder="Nome" required>
+                </div>
+                <div class="w-50 form-group ml-2">
+                    <label for="senha">Senha</label>
+                    <input type="password" name="password" class="form-control" id="senha" placeholder="senha" required>
+                </div>
+            </div>
+            <div class="d-flex w-100 justify-content-end">
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary"> Solicitar Cadastro </button>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Email">
-        </div>
-        <div class="d-flex w-100">
-            <div class="w-50 form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Nome">
-            </div>
-            <div class="w-50 form-group ml-2">
-                <label for="senha">Senha</label>
-                <input type="password" class="form-control" id="senha" placeholder="senha">
-            </div>
-        </div>
-        <div class="d-flex w-100 justify-content-end">
-            <div class="d-flex">
-                <button type="submit" class="btn btn-primary"> Solicitar Cadastro </button>
-            </div>
-        </div>
-      </div>
+      </form>
+
     </div>
   </div>
 </div>
+
 <script>
     function mostraocultasenha(){
         var x = document.getElementById("password");
@@ -97,5 +102,6 @@
             x.type = "password";
         }
     }
+    
 </script>
 @stop

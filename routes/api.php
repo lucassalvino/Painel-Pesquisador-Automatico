@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\ArtigoController;
+use App\Http\Controllers\Api\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::namespace('Api')->middleware(['cors'])->group(function(){
+    Route::prefix('/usuario')->group(function(){
+        Route::post('/', [UsuarioController::class, 'Cadastra'])->name('cadastro-usuario');
+    });
+});
+
+Route::namespace('Api')->middleware(['cors','VerificaSessao'])->group(function(){
+    Route::prefix('/artigo')->group(function(){
+        Route::post('/', [ArtigoController::class, 'Cadastra'])->name('cadastra-artigo');
+    });
 });

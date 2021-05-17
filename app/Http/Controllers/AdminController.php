@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artigo;
+use App\Models\Idioma;
 use App\Models\Login;
+use App\Models\UltimosEventos;
 use App\Models\User;
 use App\Utils\BaseRetornoApi;
 use Illuminate\Http\Request;
@@ -11,7 +14,9 @@ use Illuminate\Http\Request;
 class AdminController extends Controller{
 
     public function index(){
-        return view('pages.home');
+        $eventos = UltimosEventos::GetEventosView();
+        $homeartigos = Artigo::GetStatisticasHome();
+        return view('pages.home', compact("eventos", "homeartigos"));
     }
     public function Politica(){
         return view ('pages.politica');
@@ -21,5 +26,10 @@ class AdminController extends Controller{
     }
     public function EmConstrucao(){
         return view ('pages.emconstrucao');
+    }
+    public function CadastroArtigoExterno(Request $request){
+        $idiomas = Idioma::query()->get();
+        $artigos = Artigo::ListagemElemento($request);
+        return view ('pages.artigosexterno', compact('idiomas', 'artigos'));
     }
 }

@@ -86,10 +86,10 @@
             </li>
 
             <li>
-              <a href="#">
+              <a href="{{route('admin:cadastro_artigos_externos')}}">
                 <i class="far fa-newspaper"></i>
-                <span>Cadastro de artigo</span>
-                <span class="badge badge-pill badge-danger">Alfa</span>
+                <span>Artigos Externos</span>
+                <span class="badge badge-pill badge-primary">Beta</span>
               </a>
             </li>
 

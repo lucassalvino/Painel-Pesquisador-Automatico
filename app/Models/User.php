@@ -8,6 +8,7 @@ use App\Models\Bases\BaseModelAuthenticatable;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Utils\ArquivosStorage;
+use App\Utils\EnvConfig;
 
 class User extends BaseModelAuthenticatable
 {
@@ -39,6 +40,25 @@ class User extends BaseModelAuthenticatable
             'path_avatar' => 'required|max:300',
         ];
         return $valida;
+    }
+
+    public static function CadastraElementoArray($dados){
+        $temarquivo = false;
+        if(array_key_exists( 'avatar_base64',$dados) && array_key_exists('avatar_tipo', $dados)){
+            $dados['path_avatar'] = static::SalvaImagem($dados['avatar_base64'], $dados['avatar_tipo']);
+            $temarquivo = $dados['path_avatar'];
+        }
+        if(array_key_exists('password',$dados)){
+            $dados['password'] = hash(EnvConfig::HashSenha(), $dados['password']);
+        }
+        $retorno = parent::CadastraElementoArray($dados);
+        if(!static::CheckIfIsValidator($retorno)){
+            UltimosEventos::CadastraEvento("Novo usuário Cadastrado", "O usuário ".$dados['name']." se cadastrou na plataforma.");
+        }else{
+            if($temarquivo)
+                ArquivosStorage::DeletaArquivo($temarquivo);
+        }
+        return $retorno;
     }
 
     public function GetValidadorAtualizacao($request, $id){

@@ -18,6 +18,11 @@
     box-shadow: 15px 15px 6px rgba(0, 0, 0, 0.16);
 }
 
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+
 .container-form-login h1{
     font-family: "Segoe UI";
     font-weight: bold;
@@ -92,11 +97,15 @@ a:hover{
 .btn-primary:hover{
     background-color: #36BEF7;
 }
-input{
-    height: 40px;
+input, select{
+  height: 40px;
 }
-
-
+.opcoes-table-view a{
+  margin-right: 10px;
+}
+.opcoes-table-view i{
+  font-size: 20px;
+}
 ul.timeline {
   list-style-type: none;
   position: relative;

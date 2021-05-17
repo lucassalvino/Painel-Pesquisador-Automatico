@@ -11,19 +11,11 @@ function uploadPhoto64(e, inputfile, inputphoto, inputmime, pathloadimage) {
         var fileString = e.target.result;
         var part_one = fileString.split("data:")[1];
         var type_mime = part_one.split(";base64")[0];
-        if (
-            type_mime != 'image/jpeg' && type_mime != 'image/jpg' && type_mime != 'image/png'
-            && type_mime != 'image/gif' && type_mime != 'image/bmp' && type_mime != 'image/webp'
-        ) {
-            alert("Tipo de imagem não suportada.");
-            $(inputfile).val("");
-        } else {
-            var splited = fileString.split("base64,");
-            $(inputphoto).val(splited[1]);
-            $(inputmime).val(type_mime);
-            if (pathloadimage) {
-              $(pathloadimage).attr('src', fileString);
-            }
+        var splited = fileString.split("base64,");
+        $(inputphoto).val(splited[1]);
+        $(inputmime).val(type_mime);
+        if (pathloadimage) {
+          $(pathloadimage).attr('src', fileString);
         }
     }
     function errorfunc(e) {
@@ -65,5 +57,66 @@ $(document).ready(function(){
     });
     $("#show-sidebar").click(function() {
         $(".page-wrapper").addClass("toggled");
+    });
+    $('form').on('submit', function(e){
+        var form = $(this);
+        if(form.attr('no-process') !== undefined){
+            return true;
+        }
+        e.preventDefault();
+        var data = $(this).serialize();
+        var Authorization = "";
+        if( form.attr('data-Authorization') !== undefined ){
+          Authorization = form.attr('data-Authorization');
+        }
+        $.ajax({
+            url: $(this).attr('action'),
+            data: data,
+            dataType: 'JSON',
+            type: "POST",
+            headers:{
+              'Authorization':Authorization
+            },
+            success: function(result){
+                console.log(result);
+                Swal.fire({
+                    title: 'Sucesso:',
+                    text: "Operação efetuada com sucesso",
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then( (data)=>{
+                  if( form.attr('data-back') !== undefined ){
+                    window.location = document.referrer;
+                  }else{
+                    if( form.attr("data-reload") !== undefined ){
+                      window.location.reload();
+                    }
+                  }
+                });
+            },
+            error: function(err, resp, text) {
+              console.log(err)
+              let erro = err.responseJSON;
+              let message = "";
+              let htmlerro = '';
+              if(typeof erro != "undefined" && erro !== null) {
+                message = erro.mensagem;
+                $.each(erro.mensagenserro, function(i, e){
+                    htmlerro +=`
+                    <div class="alert text-danger" role="alert" style="background-color: rgba(255, 0, 0, 0.3);">
+                        ${e}
+                    </div>`;
+                });
+              } else {
+                message = 'Ocorreu um problema inesperado.';
+              }
+              Swal.fire({
+                  title: message,
+                  html: htmlerro,
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+              });
+            }
+          });
     });
 });
