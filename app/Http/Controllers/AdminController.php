@@ -32,4 +32,7 @@ class AdminController extends Controller{
         $artigos = Artigo::ListagemElemento($request);
         return view ('pages.artigosexterno', compact('idiomas', 'artigos'));
     }
+    public function PesquisaEmGrafo(Request $request){
+        return view('pages.pesquisagrafo');
+    }
 }

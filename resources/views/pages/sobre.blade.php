@@ -35,7 +35,7 @@
     </p>
 
     <div class="d-flex">
-        <div id="containerdiagrama" style="flex-grow: 1; height: 750px; background-color: #282c34;"></div>
+      <div id="containerdiagrama" style="flex-grow: 1; height: 750px; background-color: #282c34;"></div>
     </div>
 </div>
 

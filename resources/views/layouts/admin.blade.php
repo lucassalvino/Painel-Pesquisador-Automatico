@@ -70,10 +70,10 @@
             </li>
 
             <li>
-              <a href="#">
+              <a href="{{route('admin:pesquisagrafo')}}">
                 <i class="fas fa-search"></i>
                 <span>Pesquisa em grafo</span>
-                <span class="badge badge-pill badge-danger">Alfa</span>
+                <span class="badge badge-pill badge-primary">Beta</span>
               </a>
             </li>
 
