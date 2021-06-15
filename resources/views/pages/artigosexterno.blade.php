@@ -61,19 +61,21 @@
                 </thead>
                 <tbody>
                     @forelse($artigos as $artigo)
-                        <td>{{$artigo['titulo']}}</td>
-                        <td>{{$artigo['ano']}}</td>
-                        <td>{{$artigo['data']}}</td>
-                        <td align="left">
-                            <div class="d-flex opcoes-table-view">
-                                <a href="{{$artigo['path_arquivo']}}" target="_blank">
-                                    <i class="far fa-eye"></i>
-                                </a>
-                                <a href="{{$artigo['path_arquivo']}}" download>
-                                    <i class="fas fa-download"></i>
-                                </a>
-                            </div>
-                        </td>
+                        <tr>
+                            <td>{{$artigo['titulo']}}</td>
+                            <td>{{$artigo['ano']}}</td>
+                            <td>{{$artigo['data']}}</td>
+                            <td align="left">
+                                <div class="d-flex opcoes-table-view">
+                                    <a href="{{$artigo['path_arquivo']}}" target="_blank">
+                                        <i class="far fa-eye"></i>
+                                    </a>
+                                    <a href="{{$artigo['path_arquivo']}}" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     @empty
                         <tr>
                             <td colspan="4">Nenhum cadastrado</td>
