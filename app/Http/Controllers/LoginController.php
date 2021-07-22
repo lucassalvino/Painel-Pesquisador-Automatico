@@ -33,6 +33,10 @@ class LoginController extends Controller{
             'url' => route('pagina.login')
         ]);
     }
+    
+    public function RealizaLogin(Request $request){
+        return Login::Login($request);
+    }
 
     public function CadastroUsuario(Request $request){
 

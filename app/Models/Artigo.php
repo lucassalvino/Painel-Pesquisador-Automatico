@@ -10,7 +10,7 @@ Class Artigo extends BaseModel{
     protected $table = 'artigo_externos';
 
     protected $fillable = [
-        'id', 'titulo', 'path_arquivo', 'ano', 'idioma_id', 'usuario_id', 'processado'
+        'id', 'titulo', 'path_arquivo', 'ano', 'idioma_id', 'usuario_id', 'processado', 'autor'
     ];
 
     public function GetLikeFields(){
@@ -25,6 +25,7 @@ Class Artigo extends BaseModel{
             'path_arquivo' => 'required|max:300',
             'ano' => 'required|integer',
             'processado' => 'boolean',
+            'autor' => '300'
         ];
         return $valida;
     }
@@ -55,9 +56,18 @@ Class Artigo extends BaseModel{
     public static function GetStatisticasHome(){
         $numeroArtigos = static::query()->count();
         $numeroArtigosPendentes = static::query()->where('processado', '=', false)->count();
+        $numeroVertices = Vertice::query()->count();
+        $DataUltimo = Aresta::query()->orderBy('created_at', 'desc')->first(['created_at']);
+        if(!$DataUltimo){
+            $DataUltimo = "00/00/0000";
+        }else{
+            $DataUltimo = $DataUltimo->created_at->format('d/m/Y');
+        }
         return Array(
             'artigos'=>$numeroArtigos,
-            'pendentes'=>$numeroArtigosPendentes
+            'pendentes'=>$numeroArtigosPendentes,
+            'vertices' =>  $numeroVertices,
+            'ultimo' => $DataUltimo
         );
     }
 

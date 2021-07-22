@@ -35,6 +35,12 @@
                     </select>
                 </div>
             </div>
+            <div class="d-flex w-100 pt-1">
+                <div class="form-group w-100">
+                    <label for="autor">Autor</label>
+                    <input type="text" name="autor" id="autor" placeholder="Autor ou Autores" maxlength="300" required>
+                </div>
+            </div>
             <div class="d-flex w-100 justify-content-end pt-4">
                 <div class="d-flex">
                     <button type="submit" class="btn btn-primary"> Cadastrar </button>

@@ -59,7 +59,7 @@
                         <p class="text-secondary">Vértices de conhecimento</p>
                     </div>
                     <div class="d-flex w-100 justify-content-center align-items-center">
-                        <p class="text-dark numero-valor">0</p>
+                        <p class="text-dark numero-valor">{{$homeartigos['vertices']}}</p>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         <p class="text-secondary">Último processamento</p>
                     </div>
                     <div class="d-flex w-100 justify-content-center align-items-center">
-                        <p class="text-dark numero-valor numero-valor-data">00/00/0000</p>
+                        <p class="text-dark numero-valor numero-valor-data">{{$homeartigos['ultimo']}}</p>
                     </div>
                 </div>
             </div>
