@@ -11,6 +11,7 @@ use Faker\Provider\Base;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class VerticeArestaController extends Controller{
 
@@ -25,10 +26,16 @@ class VerticeArestaController extends Controller{
         return $descricao;
     }
 
+    private static function Erro($erro){
+        DB::rollback();
+        return BaseRetornoApi::GetRetornoErro( $erro, 'erros' );
+    }
     public function Cadastra(Request $request){
         try{
+            DB::beginTransaction();
             $dados = $request->all();
             $artigoid = $dados['artigo_id'];
+            $idsCadastros = "";
             $n = count($dados['arestas']);
             for($i = 0; $i<$n; $i++){
                 $ret = Vertice::CadastraElementoArray(Array(
@@ -36,37 +43,42 @@ class VerticeArestaController extends Controller{
                     'artigo_id' => $artigoid
                 ));
                 if ( static::HeValidator($ret) ){
-                    return BaseRetornoApi::GetRetornoErro( $ret->errors()->all(), 'origem' );
+                    return static::Erro($ret->errors()->all());
                 }
                 $idOrigem = $ret;
-                $ret = Vertice::CadastraElementoArray(Array(
+                $retd = Vertice::CadastraElementoArray(Array(
                     'descricao' => static::ObtemDescricao($dados['arestas'][$i][2]),
                     'artigo_id' => $artigoid
                 ));
                 if ( static::HeValidator($ret) ){
-                    return BaseRetornoApi::GetRetornoErro( $ret->errors()->all(), 'destino' );
+                    return static::Erro($retd->errors()->all());
                 }
-                $idDestino = $ret;
-                $ret = Aresta::CadastraElementoArray(Array(
+                $idDestino = $retd;
+
+                $reta = Aresta::CadastraElementoArray(Array(
                     'descricao' => static::ObtemDescricao($dados['arestas'][$i][1]),
                     'origem_id' => $idOrigem,
                     'destino_id' => $idDestino,
                     'artigo_id' => $artigoid
                 ));
-                if ( static::HeValidator($ret) ){
-                    return BaseRetornoApi::GetRetornoErro( $ret->errors()->all(), 'destino' );
+
+                if ( static::HeValidator($reta) ){
+                    return static::Erro($reta->errors()->all());
                 }else{
-                    $artigo = Artigo::query()
-                    ->where('id', '=', $artigoid)->first();
-                    $artigo->processado = true;
-                    $artigo->save();
-                    return BaseRetornoApi::GetRetornoSucessoId("Deu certo rapaz", $ret);
+                    $idsCadastros = $reta;
                 }
             }
+            DB::commit();
+            $artigo = Artigo::query()
+                ->where('id', '=', $artigoid)->first();
+                $artigo->processado = true;
+                $artigo->save();
+            return BaseRetornoApi::GetRetornoSucessoId("Deu certo rapaz", $idsCadastros);
+
         }catch(Exception $erro){
             Log::info("Erro ao cadastrar entidades");
             Log::error($erro);
-            return BaseRetornoApi::GetRetornoErro(["Erro ao cadastrar arestas"]);
+            return static::Erro(["Erro ao cadastrar arestas"]);
         }
     }
 
