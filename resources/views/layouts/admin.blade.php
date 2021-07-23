@@ -30,39 +30,8 @@
             <span class="user-name">
               {{ session('usuario', '') }}
             </span>
-            <!-- <span class="user-role">Administrator</span> 
-            <span class="user-status">
-              <i class="fa fa-circle"></i>
-              <span>Online</span>
-            </span>-->
           </div>
         </div>
-        <!-- sidebar-search  -->
-
-        <!--  EXEMPLO DROPDOWN
-         <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-shopping-cart"></i>
-              <span>E-commerce</span>
-              <span class="badge badge-pill badge-danger">3</span>
-            </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="#">Products
-
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Orders</a>
-                </li>
-                <li>
-                  <a href="#">Credit cart</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-      -->
         <div class="sidebar-menu">
           <ul>
             <li class="header-menu">
@@ -73,7 +42,6 @@
               <a href="{{route('admin:pesquisagrafo')}}">
                 <i class="fas fa-search"></i>
                 <span>Pesquisa em grafo</span>
-                <span class="badge badge-pill badge-primary">Beta</span>
               </a>
             </li>
 
@@ -89,7 +57,6 @@
               <a href="{{route('admin:cadastro_artigos_externos')}}">
                 <i class="far fa-newspaper"></i>
                 <span>Artigos Externos</span>
-                <span class="badge badge-pill badge-primary">Beta</span>
               </a>
             </li>
 

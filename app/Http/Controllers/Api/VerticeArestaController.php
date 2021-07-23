@@ -91,6 +91,8 @@ class VerticeArestaController extends Controller{
             ->orWhere('origem.descricao', 'ilike', '%'.$termo.'%')
             ->orWhere('destino.descricao', 'ilike', '%'.$termo.'%')->get(
                 [
+                    'origem.id as origem_id',
+                    'destino.id as destino_id',
                     'origem.descricao as origem',
                     'aresta.descricao as conexao',
                     'destino.descricao as destino'

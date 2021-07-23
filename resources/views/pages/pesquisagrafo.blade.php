@@ -29,8 +29,16 @@
 <script>
     $(document).ready(function(){
         $("#busca").on("click", function(){
+            var load = Swal.fire({
+                title: 'Aguarde...',
+                html: '<div class="lds-hourglass"></div>',// add html attribute if you want or remove
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            });
             let url = '{{route("busca-verticearesta-artigo")}}';
-            var renderer = null;
             $.ajax({
                 url: url,
                 data: {
@@ -42,15 +50,44 @@
                     'Authorization':"{{session('Authorization','')}}"
                 },
                 success: function(result){
-                    console.log(result);
-                    var g = new Dracula.Graph();
-                    var layouter = new Dracula.Layout.Spring(g);
-                    for(let i = 0; i<result.length; i++){
-                        g.addEdge(result[i].origem, result[i].destino);
+                    var conjunto = new Set();
+                    var vertices = [];
+                    var arestas = [];
+                    for(let i = 0; i < result.length; i++){
+                        if(!conjunto.has(result[i].origem_id)){
+                            vertices.push({
+                                id: result[i].origem_id, 
+                                label: result[i].origem
+                            });
+                            conjunto.add(result[i].origem_id);
+                        }
+                        if(!conjunto.has(result[i].destino_id)){
+                            vertices.push({
+                                id: result[i].destino_id, 
+                                label: result[i].destino
+                            });
+                            conjunto.add(result[i].destino_id);
+                        }
+                        arestas.push({
+                            from: result[i].origem_id,
+                            to: result[i].destino_id,
+                            label: result[i].conexao
+                        });
                     }
-                    layouter.layout();
-                    renderer = new Dracula.Renderer.Raphael(document.getElementById('canvas'), g, 888, 750);
-                    renderer.draw();
+                    var container = document.getElementById("canvas");
+                    var nodes = new vis.DataSet(vertices);
+                    var edges  = new vis.DataSet(arestas);
+                    var data = {
+                        nodes: nodes,
+                        edges: edges,
+                    };
+                    var options = {
+                        physics:{
+                            enabled: false
+                        }
+                    };
+                    var network = new vis.Network(container, data, options);
+                    load.close();
                 }
             });
         });
