@@ -25,7 +25,7 @@ Class Artigo extends BaseModel{
             'path_arquivo' => 'required|max:300',
             'ano' => 'required|integer',
             'processado' => 'boolean',
-            'autor' => '300'
+            'autor' => 'max:300'
         ];
         return $valida;
     }
