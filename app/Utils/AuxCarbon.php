@@ -17,7 +17,7 @@ class AuxCarbon{
         return $data;
     }
     
-    public static function GetDateTimeString($dbDateTime){
-        return date('d/m/Y H:i:s', strtotime($dbDateTime));
+    public static function GetDateTimeString($dbDateTime , $formato = 'd/m/Y H:i:s'){
+        return date( $formato, strtotime($dbDateTime));
     }
 }

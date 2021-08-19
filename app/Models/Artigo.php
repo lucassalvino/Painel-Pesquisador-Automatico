@@ -10,7 +10,8 @@ Class Artigo extends BaseModel{
     protected $table = 'artigo_externos';
 
     protected $fillable = [
-        'id', 'titulo', 'path_arquivo', 'ano', 'idioma_id', 'usuario_id', 'processado', 'autor'
+        'id', 'titulo', 'path_arquivo', 'ano', 'idioma_id',
+        'usuario_id', 'processado', 'autor', 'doi', 'base_pesquisa_id'
     ];
 
     public function GetLikeFields(){
@@ -25,7 +26,8 @@ Class Artigo extends BaseModel{
             'path_arquivo' => 'required|max:300',
             'ano' => 'required|integer',
             'processado' => 'boolean',
-            'autor' => 'max:300'
+            'autor' => 'max:300',
+            'doi' => 'max:300|unique:artigo_externos'
         ];
         return $valida;
     }
@@ -75,7 +77,7 @@ Class Artigo extends BaseModel{
         $retorno = parent::ListagemElemento($request);
         $retorno->getCollection()->transform(function ($value) {
             $value['path_arquivo'] = ArquivosStorage::GetUrlView($value['path_arquivo']);
-            $value['data'] = AuxCarbon::GetDateTimeString($value['created_at']);
+            $value['data'] = AuxCarbon::GetDateTimeString($value['created_at'], 'd/m/Y H:i');
             return $value;
         });
         return $retorno;

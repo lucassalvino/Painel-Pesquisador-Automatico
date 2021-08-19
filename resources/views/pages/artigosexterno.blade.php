@@ -36,9 +36,13 @@
                 </div>
             </div>
             <div class="d-flex w-100 pt-1">
-                <div class="form-group w-100">
+                <div class="form-group w-50">
                     <label for="autor">Autor</label>
                     <input type="text" name="autor" id="autor" placeholder="Autor ou Autores" maxlength="300" required>
+                </div>
+                <div class="form-group w-50  ml-2">
+                    <label for="doi">DOI</label>
+                    <input type="text" name="doi" id="doi" placeholder="DOI" maxlength="300" required>
                 </div>
             </div>
             <div class="d-flex w-100 justify-content-end pt-4">
@@ -61,6 +65,7 @@
                     <tr>
                         <th>Titulo</th>
                         <th>Ano</th>
+                        <th>DOI</th>
                         <th>Data</th>
                         <th>Opções</th>
                     </tr>
@@ -70,6 +75,7 @@
                         <tr>
                             <td>{{$artigo['titulo']}}</td>
                             <td>{{$artigo['ano']}}</td>
+                            <td>{{$artigo['doi']}}</td>
                             <td>{{$artigo['data']}}</td>
                             <td align="left">
                                 <div class="d-flex opcoes-table-view">
