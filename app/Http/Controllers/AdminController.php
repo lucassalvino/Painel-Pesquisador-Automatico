@@ -35,4 +35,8 @@ class AdminController extends Controller{
     public function PesquisaEmGrafo(Request $request){
         return view('pages.pesquisagrafo');
     }
+    public function GestaoUsuarios(Request $request){
+        $usuarios = User::query()->get();
+        return view('pages.usuarios', compact("usuarios"));
+    }
 }

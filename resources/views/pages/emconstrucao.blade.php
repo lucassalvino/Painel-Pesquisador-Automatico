@@ -10,9 +10,6 @@
     <div class="d-flex">
         <img src="{{asset('assets/images/programming.gif')}}" alt="Estou fazendo">
     </div>
-    <div id="norris">
-        <img title="Chuck Norris apoia esse projeto" src="{{asset('assets/images/Cnorris.gif')}}" alt="Cnorris">
-    </div>
 </div>
 <style>
     #norris{

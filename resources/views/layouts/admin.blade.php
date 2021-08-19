@@ -67,24 +67,6 @@
                 <span class="badge badge-pill badge-danger">Alfa</span>
               </a>
             </li>
-
-            <li class="header-menu">
-              <span>Admin</span>
-            </li>
-            <li>
-              <a href="{{route('admin:construindo')}}">
-                <i class="fas fa-users"></i>
-                <span>Usuários</span>
-                <span class="badge badge-pill badge-danger">Alfa</span>
-              </a>
-            </li>
-            <li>
-              <a href="{{route('admin:construindo')}}">
-                <i class="fas fa-tools"></i>
-                <span>Configurações</span>
-                <span class="badge badge-pill badge-danger">Alfa</span>
-              </a>
-            </li>
             <li class="header-menu">
               <span>Sobre</span>
             </li>
