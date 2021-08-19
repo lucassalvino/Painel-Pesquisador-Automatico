@@ -67,6 +67,12 @@
                 <span class="badge badge-pill badge-danger">Alfa</span>
               </a>
             </li>
+            <li>
+              <a href="{{route('admin:basepesquisa')}}">
+                <i class="fas fa-database"></i>
+                <span>Bases de Pesquisa</span>
+              </a>
+            </li>
             <li class="header-menu">
               <span>Sobre</span>
             </li>

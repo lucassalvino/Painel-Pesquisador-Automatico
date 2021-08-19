@@ -35,5 +35,6 @@ Route::group([
     Route::get('/sobre', [AdminController::class, 'Sobre'])->name('sobre');
     Route::get('/cadastroartigoexterno', [AdminController::class, 'CadastroArtigoExterno'])->name('cadastro_artigos_externos');
     Route::get('/pesquisagrafo', [AdminController::class, 'PesquisaEmGrafo'])->name('pesquisagrafo');
+    Route::get('/basepesquisa', [AdminController::class, 'BasePesquisa'])->name('basepesquisa');
     Route::get('/emconstrucao', [AdminController::class, 'EmConstrucao'])->name('construindo');
 });

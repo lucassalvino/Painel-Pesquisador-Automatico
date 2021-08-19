@@ -45,6 +45,16 @@
                     <input type="text" name="doi" id="doi" placeholder="DOI" maxlength="300" required>
                 </div>
             </div>
+            <div class="d-flex w-100 pt-1">
+                <div class="form-group w-100">
+                    <label for="base_pesquisa_id">Base Pesquisa</label>
+                    <select name="base_pesquisa_id" id="base_pesquisa_id">
+                        @foreach($bases as $base)
+                            <option value="{{$base->id}}">{{$base->descricao}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="d-flex w-100 justify-content-end pt-4">
                 <div class="d-flex">
                     <button type="submit" class="btn btn-primary"> Cadastrar </button>

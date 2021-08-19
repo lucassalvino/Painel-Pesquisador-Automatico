@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ArtigoController;
+use App\Http\Controllers\Api\BasePesquisaController;
 use App\Http\Controllers\Api\EntidadeArtigoController;
 use App\Http\Controllers\Api\TextoArtigoController;
 use App\Http\Controllers\Api\UsuarioController;
@@ -47,5 +48,8 @@ Route::namespace('Api')->middleware(['cors','VerificaSessao'])->group(function()
     Route::prefix('verticearesta')->group(function(){
         Route::post('/busca', [VerticeArestaController::class, 'Busca'])->name('busca-verticearesta-artigo');
         Route::post('/', [VerticeArestaController::class, 'Cadastra'])->name('cadastra-verticearesta-analise-artigo');
+    });
+    Route::prefix('/basepesquisa')->group(function(){
+        Route::post('/', [BasePesquisaController::class, 'Cadastra'])->name('cadastra-base-pesquisa');
     });
 });
