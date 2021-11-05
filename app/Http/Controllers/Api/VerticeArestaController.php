@@ -84,32 +84,19 @@ class VerticeArestaController extends Controller{
 
     public function Busca(Request $request){
         $termo = $request->all()['busca'];
-        $verticesIds = Aresta::query()
+        $DadosExibir = Aresta::query()
             ->leftJoin('vertice as origem', 'origem.id', '=', 'aresta.origem_id')
             ->leftJoin('vertice as destino', 'destino.id', '=', 'aresta.destino_id')
             ->where('aresta.descricao', 'ilike', '%'.$termo.'%')
             ->orWhere('origem.descricao', 'ilike', '%'.$termo.'%')
             ->orWhere('destino.descricao', 'ilike', '%'.$termo.'%')
             ->get([
-                'aresta.id'
+                'origem.id as origem_id',
+                'destino.id as destino_id',
+                'origem.descricao as origem',
+                'aresta.descricao as conexao',
+                'destino.descricao as destino'
             ]);
-        $idsVertices = [];
-        foreach($verticesIds as $item){
-            array_push($idsVertices, $item->id);
-        }
-        $DadosExibir = Aresta::query()
-            ->join('vertice as origem', 'origem.id', '=', 'aresta.origem_id')
-            ->join('vertice as destino', 'destino.id', '=', 'aresta.destino_id')
-            ->whereIn('aresta.id', $idsVertices)
-            ->get(
-                [
-                    'origem.id as origem_id',
-                    'destino.id as destino_id',
-                    'origem.descricao as origem',
-                    'aresta.descricao as conexao',
-                    'destino.descricao as destino'
-                ]
-            );
         return $DadosExibir;
     }
 }
