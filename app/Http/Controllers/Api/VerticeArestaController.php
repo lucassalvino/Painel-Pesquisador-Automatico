@@ -85,8 +85,8 @@ class VerticeArestaController extends Controller{
     public function Busca(Request $request){
         $termo = $request->all()['busca'];
         $consulta = Aresta::query()
-            ->join('vertice as origem', 'origem.id', '=', 'aresta.origem_id')
-            ->join('vertice as destino', 'destino.id', '=', 'aresta.destino_id')
+            ->leftJoin('vertice as origem', 'origem.id', '=', 'aresta.origem_id')
+            ->leftJoin('vertice as destino', 'destino.id', '=', 'aresta.destino_id')
             ->where('aresta.descricao', 'ilike', '%'.$termo.'%')
             ->orWhere('origem.descricao', 'ilike', '%'.$termo.'%')
             ->orWhere('destino.descricao', 'ilike', '%'.$termo.'%')->get(
