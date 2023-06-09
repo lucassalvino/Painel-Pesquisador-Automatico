@@ -10,7 +10,7 @@
             </div>
             <div class="d-flex pt-2">
                 <h1>
-                    Pesquisador automático
+                    LEDORIA
                 </h1>
             </div>
             <div class="d-flex justify-content-center align-items-center flex-column pt-4">

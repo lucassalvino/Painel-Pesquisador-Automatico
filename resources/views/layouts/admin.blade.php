@@ -17,7 +17,7 @@
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
-          <a href="{{route('admin:home')}}">Pesquisador</a>
+          <a href="{{route('admin:home')}}">LEDORIA</a>
           <div id="close-sidebar">
             <i class="fas fa-times"></i>
           </div>

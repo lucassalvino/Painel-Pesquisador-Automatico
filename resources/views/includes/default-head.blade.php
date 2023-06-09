@@ -5,7 +5,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <title>
-    Pesquisador automático - @yield('title')
+    LEDORIA - @yield('title')
 </title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
@@ -16,12 +16,12 @@
 
 <meta name="description" content="Pesquisador automático para auxiliar no desenvolvimento de pesquisa"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Pesquisador automático" />
-<meta property="og:site_name" content="Pesquisador automático" />
-<meta property="og:url" content="https://pesquisadorautomatico.com.br/" />
+<meta property="og:title" content="LEDORIA" />
+<meta property="og:site_name" content="LEDORIA" />
+<meta property="og:url" content="https://ledoria.com.br/" />
 <meta property="og:description" content="Pesquisador automático para auxiliar no desenvolvimento de pesquisa" />
 <meta property="og:locale" content="pt_BR" />
-<meta property="og:image" content="https://pesquisadorautomatico.com.br/assets/imgs/publicacao.png"/>
+<meta property="og:image" content="https://ledoria.com.br/assets/imgs/publicacao.png"/>
 <meta name="author" content="Lucas Salvino">
 <link rel="shortcut icon" href="{{asset('assets/images/iconfinder-icon.svg')}}">
 <meta name="format-detection" content="telephone=no">
